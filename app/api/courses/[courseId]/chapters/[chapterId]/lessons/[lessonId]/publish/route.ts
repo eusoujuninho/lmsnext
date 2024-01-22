@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 
 export async function PUT(
   req: Request,
-  { params }: { params: { chapterId: string; } }
+  { params }: { params: { lessonId: string; } }
 ) {
   try {
     const { userId } = auth();
@@ -16,10 +16,9 @@ export async function PUT(
 
     const { list } = await req.json();
 
-    const ownChapter = await db.chapter.findUnique({
+    const ownChapter = await db.lesson.findUnique({
       where: {
-        id: params.chapterId,
-        userId: userId
+        id: params.lessonId
       }
     });
 

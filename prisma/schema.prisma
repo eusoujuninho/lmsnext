@@ -90,6 +90,8 @@ model Lesson {
 
   jsonTranscription String?
 
+  vttTranscription String?
+
   files LessonFile[]
 
   muxData MuxData?
