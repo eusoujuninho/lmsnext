@@ -7,17 +7,16 @@ import { db } from "@/lib/db";
 import { IconBadge } from "@/components/icon-badge";
 import { Banner } from "@/components/banner";
 
-import { ChapterTitleForm } from "./_components/chapter-title-form";
-import { ChapterDescriptionForm } from "./_components/chapter-description-form";
-import { ChapterAccessForm } from "./_components/chapter-access-form";
-import { ChapterVideoForm } from "./_components/chapter-video-form";
-import { ChapterActions } from "./_components/chapter-actions";
-import { LessonsForm } from "./lessons/[lessonId]/_components/lessons-form";
+import { LessonTitleForm } from "./_components/lesson-title-form";
+import { LessonDescriptionForm } from "./_components/lesson-description-form";
+import { LessonAccessForm } from "./_components/lesson-access-form";
+import { LessonVideoForm } from "./_components/lesson-video-form";
+import { LessonActions } from "./_components/lesson-actions";
 
-const ChapterIdPage = async ({
+const LessonIdPage = async ({
   params
 }: {
-  params: { courseId: string; chapterId: string }
+  params: { chapterId: string; lessonId: string }
 }) => {
   const { userId } = auth();
 
@@ -25,25 +24,21 @@ const ChapterIdPage = async ({
     return redirect("/");
   }
 
-  const chapter = await db.chapter.findUnique({
+  const lesson = await db.lesson.findUnique({
     where: {
-      id: params.chapterId,
-      courseId: params.courseId
-    },
-    include: {
-      muxData: true,
-      lessons: true
-    },
+      id: params.lessonId,
+      chapterId: params.chapterId
+    }
   });
 
-  if (!chapter) {
+  if (!lesson) {
     return redirect("/")
   }
 
   const requiredFields = [
-    chapter.title,
-    chapter.description,
-    chapter.videoUrl,
+    lesson.title,
+    lesson.description,
+    lesson.videoUrl,
   ];
 
   const totalFields = requiredFields.length;
@@ -55,7 +50,7 @@ const ChapterIdPage = async ({
 
   return (
     <>
-      {!chapter.isPublished && (
+      {!lesson.isPublished && (
         <Banner
           variant="warning"
           label="This chapter is unpublished. It will not be visible in the course"
@@ -65,7 +60,7 @@ const ChapterIdPage = async ({
         <div className="flex items-center justify-between">
           <div className="w-full">
             <Link
-              href={`/teacher/courses/${params.courseId}`}
+              href={`/teacher/courses/${params.lessonId}`}
               className="flex items-center text-sm hover:opacity-75 transition mb-6"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
@@ -80,12 +75,7 @@ const ChapterIdPage = async ({
                   Complete all fields {completionText}
                 </span>
               </div>
-              <ChapterActions
-                disabled={!isComplete}
-                courseId={params.courseId}
-                chapterId={params.chapterId}
-                isPublished={chapter.isPublished}
-              />
+
             </div>
           </div>
         </div>
@@ -98,16 +88,7 @@ const ChapterIdPage = async ({
                   Customize your chapter
                 </h2>
               </div>
-              <ChapterTitleForm
-                initialData={chapter}
-                courseId={params.courseId}
-                chapterId={params.chapterId}
-              />
-              <ChapterDescriptionForm
-                initialData={chapter}
-                courseId={params.courseId}
-                chapterId={params.chapterId}
-              />
+  
             </div>
             <div>
               <div className="flex items-center gap-x-2">
@@ -116,19 +97,11 @@ const ChapterIdPage = async ({
                   Access Settings
                 </h2>
               </div>
+   
             </div>
           </div>
           <div>
-            <div className="flex items-center gap-x-2">
-              <IconBadge icon={Video} />
-              <h2 className="text-xl">
-                Add a lesson
-              </h2>
-            </div>
-            <LessonsForm
-                initialData={chapter}
-                chapterId={params.chapterId}
-              />
+            <LessonVideoForm initialData={lesson} chapterId={params.chapterId} lessonId={lesson.id}></LessonVideoForm>
           </div>
         </div>
       </div>
@@ -136,4 +109,4 @@ const ChapterIdPage = async ({
    );
 }
  
-export default ChapterIdPage;
+export default LessonIdPage;
