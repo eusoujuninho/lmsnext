@@ -1,3 +1,4 @@
 export const isTeacher = (userId?: string | null) => {
-  return userId === process.env.NEXT_PUBLIC_TEACHER_ID;
+  const admins = process.env.NEXT_PUBLIC_TEACHER_IDS?.split(',');
+  return admins?.includes(userId ?? '');
 }
