@@ -164,6 +164,25 @@ const FormMessage = React.forwardRef<
 })
 FormMessage.displayName = "FormMessage"
 
+// Assuming this is your Select component or similar in `components/ui/form.tsx`
+
+const FormSelect = React.forwardRef<
+  HTMLSelectElement,
+  React.SelectHTMLAttributes<HTMLSelectElement> & { options: { value: string; label: string }[] }
+>(({ options, className, ...props }, ref) => {
+  return (
+    <select ref={ref} className={`${className}`} {...props}>
+      {options.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
+  );
+});
+FormSelect.displayName = "FormSelect";
+
+
 export {
   useFormField,
   Form,
@@ -173,4 +192,5 @@ export {
   FormDescription,
   FormMessage,
   FormField,
+  FormSelect
 }

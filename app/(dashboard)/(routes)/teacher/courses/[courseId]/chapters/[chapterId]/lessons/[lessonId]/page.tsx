@@ -46,7 +46,7 @@ const LessonIdPage = async ({
 
   const completionText = `(${completedFields}/${totalFields})`;
 
-  const isComplete = requiredFields.every(Boolean);
+  const isComplete = true;
 
   return (
     <>
@@ -69,7 +69,7 @@ const LessonIdPage = async ({
             <div className="flex items-center justify-between w-full">
               <div className="flex flex-col gap-y-2">
                 <h1 className="text-2xl font-medium">
-                  Chapter Creation
+                  Lesson creation
                 </h1>
                 <span className="text-sm text-slate-700">
                   Complete all fields {completionText}
@@ -80,26 +80,6 @@ const LessonIdPage = async ({
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
-          <div className="space-y-4">
-            <div>
-              <div className="flex items-center gap-x-2">
-                <IconBadge icon={LayoutDashboard} />
-                <h2 className="text-xl">
-                  Customize your chapter
-                </h2>
-              </div>
-  
-            </div>
-            <div>
-              <div className="flex items-center gap-x-2">
-                <IconBadge icon={Eye} />
-                <h2 className="text-xl">
-                  Access Settings
-                </h2>
-              </div>
-   
-            </div>
-          </div>
           <div>
             <LessonVideoForm initialData={lesson} chapterId={params.chapterId} lessonId={lesson.id}></LessonVideoForm>
           </div>

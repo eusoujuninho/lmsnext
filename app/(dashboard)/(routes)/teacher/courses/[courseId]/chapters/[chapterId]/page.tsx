@@ -51,7 +51,7 @@ const ChapterIdPage = async ({
 
   const completionText = `(${completedFields}/${totalFields})`;
 
-  const isComplete = requiredFields.every(Boolean);
+  const isComplete = true;
 
   return (
     <>
@@ -109,14 +109,6 @@ const ChapterIdPage = async ({
                 chapterId={params.chapterId}
               />
             </div>
-            <div>
-              <div className="flex items-center gap-x-2">
-                <IconBadge icon={Eye} />
-                <h2 className="text-xl">
-                  Access Settings
-                </h2>
-              </div>
-            </div>
           </div>
           <div>
             <div className="flex items-center gap-x-2">
@@ -126,14 +118,14 @@ const ChapterIdPage = async ({
               </h2>
             </div>
             <LessonsForm
-                initialData={chapter}
-                chapterId={params.chapterId}
-              />
+              initialData={chapter}
+              chapterId={params.chapterId}
+            />
           </div>
         </div>
       </div>
     </>
-   );
+  );
 }
- 
+
 export default ChapterIdPage;
