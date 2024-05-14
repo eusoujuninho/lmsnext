@@ -9,6 +9,20 @@ generator client {
   previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
+model Teacher {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  avatarUrl   String?  @db.Text
+  name        String
+  shortBio    String   @db.Text
+  longBio     String   @db.Text
+
+  courses     Course[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model Course {
   id String @id @default(uuid())
   userId String
@@ -23,6 +37,9 @@ model Course {
   categoryId String?
   category Category? @relation(fields: [categoryId], references: [id])
 
+  teacherId    String?      // Adicionando uma referência ao Teacher
+  teacher      Teacher?     @relation(fields: [teacherId], references: [id])
+
   chapters Chapter[]
   attachments Attachment[]
   purchases Purchase[]
@@ -31,6 +48,7 @@ model Course {
   updatedAt DateTime @updatedAt
 
   @@index([categoryId])
+  @@index([teacherId])
   @@fulltext([title])
 }
 
