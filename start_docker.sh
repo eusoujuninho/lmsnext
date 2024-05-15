@@ -1,22 +1,18 @@
 #!/bin/bash
 
-# Nome da imagem Docker
-IMAGE_NAME="lms"
+# Define o nome do serviço da aplicação no Docker Compose
+APP_SERVICE_NAME="app"
 
-# Construir a imagem Docker
-echo "Construindo a imagem Docker..."
-docker build -t $IMAGE_NAME .
+echo "Construindo e iniciando os serviços com Docker Compose..."
+# Usar docker-compose para construir e iniciar os serviços
+docker-compose up -d --build
 
-# Verificar se já existe um container rodando e pará-lo
-CONTAINER_ID=$(docker ps -q -f name=$IMAGE_NAME)
-if [ ! -z "$CONTAINER_ID" ]; then
-    echo "Parando o container existente..."
-    docker stop $CONTAINER_ID
-    docker rm $CONTAINER_ID
+# Obter o ID do container da aplicação
+APP_CONTAINER_ID=$(docker-compose ps -q $APP_SERVICE_NAME)
+
+if [ ! -z "$APP_CONTAINER_ID" ]; then
+  echo "Container da aplicação rodando em: http://localhost:3000"
+  echo "Container ID: $APP_CONTAINER_ID"
+else
+  echo "Falha ao iniciar o container da aplicação."
 fi
-
-# Rodar o container Docker
-echo "Iniciando o container Docker..."
-docker run -p 3000:3000 -d --name $IMAGE_NAME $IMAGE_NAME
-
-echo "Container rodando em: http://localhost:3000"
