@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_dW5iaWFzZWQtbXVsZS04My5jbGVyay5hY2NvdW50cy5kZXYk
+      - CLERK_SECRET_KEY=sk_test_P0r01sAvOFZTFl6TyK3Jik7GD8z2ZqmRUj3fVZn1CW
+      - NEXT_PUBLIC_CLERK_SIGN_IN_URL=
+      - NEXT_PUBLIC_CLERK_SIGN_UP_URL=
+      - NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=
+      - NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=
+      - DATABASE_URL=mysql://root:example@db:3306/mydatabase
+      - UPLOADTHING_SECRET=sk_live_aca1b3b1f6096ceca46253cf80f8eb4b635c63987e8e696992b19c6e8db879dc
+      - UPLOADTHING_APP_ID=biie9gjv1h
+      - MUX_TOKEN_ID=3dece6c9-c34c-4f91-a31b-2a4c193ecc95
+      - MUX_TOKEN_SECRET=MSH6iguxFQXWLNB17bgI1jlcguGw5WfQP7z/mcdn2rDcH8Zuvv2unkYwzNpA6UpzaeV7xbuP6ae
+      - STRIPE_API_KEY=
+      - NEXT_PUBLIC_APP_URL=http://localhost:3001
+      - STRIPE_WEBHOOK_SECRET=
+      - NEXT_PUBLIC_TEACHER_ID=user_2bEYaCDiJEcFM7YDSWA0FNKk4P5
+      - NEXT_PUBLIC_ALLOW_ALL_ADMIN=true
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: example
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:

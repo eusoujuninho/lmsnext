@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copia os arquivos de configuração do projeto e instala todas as dependências
 COPY package.json yarn.lock ./
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
 # Copia o restante dos arquivos do projeto
 COPY . .
