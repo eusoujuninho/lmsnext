@@ -1,5 +1,5 @@
 # Especifica a imagem base oficial do Node.js
-FROM node:18-alpine
+FROM node:18-alpine3.16
 
 # Define o diretório de trabalho no container
 WORKDIR /app
@@ -7,6 +7,8 @@ WORKDIR /app
 # Copia os arquivos de configuração do projeto e instala todas as dependências
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
+
+RUN npx prisma generate
 
 # Copia o restante dos arquivos do projeto
 COPY . .
