@@ -84,6 +84,11 @@
   dependencies:
     csstype "3.1.1"
 
+"@coderline/alphatab@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.npmjs.org/@coderline/alphatab/-/alphatab-1.2.3.tgz"
+  integrity sha512-qAJqEO9DDUhEqtBM5b8FeIg8EoY7HElNN2Tm23oGjzchGU2bD4Jyk/KBgHqvvXm8ZTuJE9G0Nga68qxPMAnwhw==
+
 "@deepgram/captions@^1.1.1":
   version "1.2.0"
   resolved "https://registry.npmjs.org/@deepgram/captions/-/captions-1.2.0.tgz"
