@@ -4,10 +4,14 @@ FROM node:18-alpine3.16
 # Define o diretório de trabalho no container
 WORKDIR /app
 
-# Copia os arquivos de configuração do projeto e instala todas as dependências
+# Copia apenas os arquivos necessários para a instalação de dependências
 COPY package.json yarn.lock ./
+
+# Instala todas as dependências
 RUN yarn install --frozen-lockfile
 
+# Gera o Prisma Client
+COPY prisma ./prisma
 RUN npx prisma generate
 
 # Copia o restante dos arquivos do projeto
