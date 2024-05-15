@@ -36,6 +36,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
+    "currency-converter-lt": "^2.0.1",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.12",
     "i18next": "^23.7.18",
