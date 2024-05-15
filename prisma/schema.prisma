@@ -119,7 +119,6 @@ model Lesson {
   isPublished Boolean @default(false)
   isFree Boolean? @default(false)
 
-
   chapterId String @unique
   chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 
